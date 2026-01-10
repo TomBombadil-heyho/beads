@@ -237,6 +237,70 @@ malicious due to heuristic detection. See `docs/ANTIVIRUS.md` for details.
 
 ---
 
+## delete-non-main-branches.sh
+
+Safely delete all remote branches except 'main' from the repository.
+
+### Usage
+
+```bash
+# Preview which branches would be deleted
+./scripts/delete-non-main-branches.sh --dry-run
+
+# Delete branches with confirmation prompt
+./scripts/delete-non-main-branches.sh
+
+# Delete branches without confirmation
+./scripts/delete-non-main-branches.sh --force
+```
+
+### What It Does
+
+This script automates the cleanup of remote branches:
+
+1. **Fetches** list of all remote branches
+2. **Filters** out 'main' and 'HEAD' for protection
+3. **Displays** list of branches to be deleted
+4. **Requests** confirmation (unless --force is used)
+5. **Deletes** each non-main branch from remote
+
+### Safety Features
+
+- The 'main' branch is protected and cannot be deleted
+- The 'HEAD' pointer is automatically excluded
+- Requires explicit confirmation by default
+- `--dry-run` mode for safe preview
+- Reports success/failure for each deletion
+
+### Examples
+
+```bash
+# See what would be deleted without making changes
+./scripts/delete-non-main-branches.sh --dry-run
+
+# Delete old feature branches with confirmation
+./scripts/delete-non-main-branches.sh
+
+# Automated cleanup (for scripts)
+./scripts/delete-non-main-branches.sh --force
+```
+
+### When to Use
+
+This script is useful for:
+- Cleaning up stale feature branches
+- Repository maintenance
+- Preparing for release
+- Removing branches after PR merges
+
+### Why This Script Exists
+
+Over time, repositories accumulate many feature, bugfix, and experimental branches.
+Manually deleting them one-by-one with `git push origin --delete` is tedious and
+error-prone. This script automates the cleanup while protecting the main branch.
+
+---
+
 ## Future Scripts
 
 Additional maintenance scripts may be added here as needed.
