@@ -33,7 +33,6 @@ Safety:
   - The 'HEAD' pointer is automatically excluded
   - Requires confirmation by default (unless --force is used)
 EOF
-    exit 0
 }
 
 # Parse arguments
@@ -50,10 +49,13 @@ for arg in "$@"; do
             ;;
         -h|--help)
             usage
+            exit 0
             ;;
         *)
             echo -e "${RED}Error: Unknown argument '$arg'${NC}"
+            echo ""
             usage
+            exit 1
             ;;
     esac
 done
@@ -69,8 +71,8 @@ if [ -z "$BRANCHES" ]; then
     exit 0
 fi
 
-# Count branches
-BRANCH_COUNT=$(echo "$BRANCHES" | wc -l | tr -d ' ')
+# Count branches (only if branches exist)
+BRANCH_COUNT=$(echo "$BRANCHES" | grep -c "^" || echo "0")
 
 echo -e "${YELLOW}Found ${BRANCH_COUNT} branch(es) to delete:${NC}"
 echo "$BRANCHES" | while read -r branch; do
