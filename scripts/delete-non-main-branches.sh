@@ -103,7 +103,7 @@ echo -e "${YELLOW}Deleting branches...${NC}"
 DELETED_COUNT=0
 FAILED_COUNT=0
 
-echo "$BRANCHES" | while read -r branch; do
+while read -r branch; do
     if [ -z "$branch" ]; then
         continue
     fi
@@ -116,11 +116,11 @@ echo "$BRANCHES" | while read -r branch; do
         echo -e "${RED}✗ (failed)${NC}"
         FAILED_COUNT=$((FAILED_COUNT + 1))
     fi
-done
+done <<< "$BRANCHES"
 
 echo ""
 echo -e "${GREEN}✓ Branch deletion complete${NC}"
-echo -e "  Deleted: ${BRANCH_COUNT} branch(es)"
+echo -e "  Deleted: ${DELETED_COUNT} branch(es)"
 
 if [ "$FAILED_COUNT" -gt 0 ]; then
     echo -e "  ${RED}Failed: ${FAILED_COUNT} branch(es)${NC}"
