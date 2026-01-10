@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
 
 # Colors for output
@@ -44,11 +44,9 @@ for arg in "$@"; do
     case $arg in
         --dry-run)
             DRY_RUN=true
-            shift
             ;;
         --force)
             FORCE=true
-            shift
             ;;
         -h|--help)
             usage
