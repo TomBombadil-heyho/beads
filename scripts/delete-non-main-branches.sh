@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 set -euo pipefail
 
 # Colors for output
@@ -124,4 +124,7 @@ echo -e "  Deleted: ${DELETED_COUNT} branch(es)"
 
 if [ "$FAILED_COUNT" -gt 0 ]; then
     echo -e "  ${RED}Failed: ${FAILED_COUNT} branch(es)${NC}"
+    exit 1
 fi
+
+exit 0
